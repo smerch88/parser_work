@@ -28,3 +28,9 @@ node .\scripts\1.parse.js
 node .\scripts\2.spam.js
 
 </pre>
+
+links variants:
+
+- https://djinni.co/jobs/my-subs/?keywords=%28junior%7Ctrainee%7Cintern%29+react
+- https://djinni.co/jobs/my-profile/
+- https://djinni.co/jobs/?all-keywords=&any-of-keywords=&exclude-keywords=middle%2C+senior%2C+sinior%2C+angular&primary_keyword=JavaScript&keywords=-middle%2C+-senior%2C+-sinior%2C+-angular
