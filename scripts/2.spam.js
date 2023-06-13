@@ -6,6 +6,7 @@ const jsonData = require('../vacanciesResult.json');
 (async () => {
   const values = Object.values(jsonData);
   let arrayLinksForScrap = [];
+  let successfullyAppliedJobs = []; // New array to store successfully applied jobs
 
   const browser = await puppeteer.launch({
     headless: false,
@@ -47,6 +48,8 @@ const jsonData = require('../vacanciesResult.json');
       await page.click('#job_apply');
       console.log(`4 apply job`);
       await page.waitForTimeout(random);
+
+      successfullyAppliedJobs.push(arrayLinksForScrap[i]); // Add the job to the successfully applied jobs array
     } catch (error) {
       console.error('Interaction failed:', error);
     }
@@ -61,6 +64,18 @@ const jsonData = require('../vacanciesResult.json');
       }
     });
   }
+
+  // Write the successfully applied jobs to another file
+  let appliedJobsResult = JSON.stringify(successfullyAppliedJobs);
+  fs.writeFile(
+    'successfullyAppliedJobs.json',
+    appliedJobsResult,
+    function (err) {
+      if (err) {
+        console.log(err);
+      }
+    },
+  );
 
   console.log('5 refresh json done');
 

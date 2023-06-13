@@ -1,8 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const linkWithFilter =
-  'https://djinni.co/jobs/?all-keywords=&any-of-keywords=&exclude-keywords=middle%2C+senior%2C+sinior%2C+angular&primary_keyword=JavaScript&keywords=-middle%2C+-senior%2C+-sinior%2C+-angular';
+const linkWithFilter = 'https://djinni.co/jobs/my-profile/';
 
 (async () => {
   const browser = await puppeteer.launch({
