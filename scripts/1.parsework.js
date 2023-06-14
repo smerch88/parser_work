@@ -1,8 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const linkWithFilter =
-  'https://djinni.co/jobs/?all-keywords=front&any-of-keywords=&exclude-keywords=&exp_level=1y&keywords=front';                                 
+const linkWithFilter = 'https://www.work.ua/jobs-remote-front+end/?page=1';                                 
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -33,9 +32,9 @@ const linkWithFilter =
   });
 
   const pages = await page.$$(
-    'body > div.wrapper > div.container > div.row > div.col-md-8.row-mobile-order-2 > ul.pagination.pagination_with_numbers > li > a',
+    '#pjax-job-list > nav > ul.pagination.hidden-xs > li> a',
   );
-  pages.shift();
+  pages.shift(); 
 
   let pageURLs = [];
   for (const pageLink of pages) {
@@ -44,11 +43,9 @@ const linkWithFilter =
   }
 
   let vacancies = await page.evaluate(() =>
-    Array.from(
-      document.querySelectorAll(
-        'div.d-flex.align-items-md-center.flex-column.flex-sm-row > div.list-jobs__title.list__title.order-1 > a.profile',
-      ),
-    ).map((a) => a.href),
+    Array.from(document.querySelectorAll('#pjax-job-list > div > h2 > a')).map(
+      (a) => a.href,
+    ),
   );
 
   for (const url of pageURLs) {
@@ -77,9 +74,7 @@ const linkWithFilter =
 
     let vacanciesNew = await page.evaluate(() =>
       Array.from(
-        document.querySelectorAll(
-          'div.d-flex.align-items-md-center.flex-column.flex-sm-row > div.list-jobs__title.list__title.order-1 > a.profile',
-        ),
+        document.querySelectorAll('#pjax-job-list > div > h2 > a'),
       ).map((a) => a.href),
     );
 
@@ -109,7 +104,7 @@ const linkWithFilter =
 
   let result = JSON.stringify(vacancies);
 
-  fs.writeFile('vacanciesResult.json', result, function (err) {
+  fs.writeFile('vacanciesResultWork.json', result, function (err) {
     if (err) {
       console.log(err);
     }
