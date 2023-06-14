@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const jsonData = require('./vacanciesResultRabota.json');
+const jsonData = require('../vacanciesResultRabota.json');
 
 (async () => {
   const values = Object.values(jsonData);
@@ -27,52 +27,28 @@ const jsonData = require('./vacanciesResultRabota.json');
     await page.waitForTimeout(random);
     try {
       await page.waitForSelector(
-        ' div > div > lib-top-bar > div > div > santa-button > button',
+        'div > div > lib-top-bar > div > div > santa-button > button',
         { visible: true },
       );
       await page.click(
-        ' div > div > lib-top-bar > div > div > santa-button > button',
+        'div > div > lib-top-bar > div > div > santa-button > button',
       );
       console.log('2. click respond');
       await page.waitForTimeout(random);
 
       await page.waitForSelector(
-        body >
-          app - root >
-          div >
-          alliance - apply - page - shell >
-          alliance - apply - page >
-          main >
-          div.santa - mx - auto >
-          div >
-          alliance - apply - action - buttons >
-          div >
-          santa - button - spinner >
-          div >
-          santa - button >
-          button,
+        'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
         { visible: true },
       );
+
       await page.click(
-        body >
-          app - root >
-          div >
-          alliance - apply - page - shell >
-          alliance - apply - page >
-          main >
-          div.santa - mx - auto >
-          div >
-          alliance - apply - action - buttons >
-          div >
-          santa - button - spinner >
-          div >
-          santa - button >
-          button,
+        'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
       );
+
       console.log('2. respond done');
       await page.waitForTimeout(random);
 
-      successfullyAppliedJobs.push(arrayLinksForScrap[i]); // Add the job to the successfully applied jobs array
+      successfullyAppliedJobs.push(arrayLinkForScrap[i]); // Add the job to the successfully applied jobs array
     } catch (error) {
       console.error('Interaction failed:', error);
     }
