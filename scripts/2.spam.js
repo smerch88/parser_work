@@ -66,6 +66,28 @@ const jsonData = require('../vacanciesResult.json');
   }
 
   // Write the successfully applied jobs to another file
+  
+  let existingContent = '';
+  try {
+    existingContent = fs.readFileSync('successfullyAppliedJobs.json', 'utf8');
+  } catch (err) {
+    console.error(err);
+  }
+
+  let existingVacancies = [];
+  if (existingContent) {
+    try {
+      existingVacancies = JSON.parse(existingContent);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  successfullyAppliedJobs = [
+    ...new Set([...existingVacancies, ...successfullyAppliedJobs]),
+  ];
+
+
   let appliedJobsResult = JSON.stringify(successfullyAppliedJobs);
   fs.writeFile(
     'successfullyAppliedJobs.json',
