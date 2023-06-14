@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "parse": "node .\\scripts\\1.parse.js",
+    "spam": "node .\\scripts\\2.spam.js",
+    "parsework": "node .\\scripts\\1.parsework.js",
+    "spamwork": "node .\\scripts\\2.spamwork.js",
+    "parserabota": "node .\\scripts\\1.rabota-parse.js",
+    "spamrabota": "node .\\scripts\\2.rabota-spam.js",
+    "openbrowser": "node .\\scripts\\0.open-browser.js"
   },
   "keywords": [],
   "author": "",
