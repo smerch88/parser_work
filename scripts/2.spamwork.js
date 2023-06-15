@@ -28,18 +28,30 @@ const jsonData = require('../vacanciesResultWork.json');
 
       try {
         await page.waitForSelector(
-          '#fix-block > div > div > div > div > div > div.clearfix > div.pull-left > div > div:nth-child(1) > a',
+          '#fix-block > div > div > div > div > div > div > div.pull-left > div > div:nth-child(2) > a',
           { visible: true },
         );
         await page.click(
-          '#fix-block > div > div > div > div > div > div.clearfix > div.pull-left > div > div:nth-child(1) > a',
+          '#fix-block > div > div > div > div > div > div > div.pull-left > div > div:nth-child(2) > a',
         );
         console.log(`2 click respond`);
-        await page.waitForTimeout(random);
+    await page.waitForTimeout(random);
 
+    await page.waitForSelector('#addtextswtch', { visible: true });
+    await page.click(
+      '#addtextswtch',
+    );
+    console.log(`3 click textfeald`);
+    await page.waitForTimeout(random);
+
+    await page.waitForSelector('#addtext', { visible: true });
+    await page.focus('#addtext');
+    await page.keyboard.type('Hello! I would like to work in your company.');
+    console.log(`4 add text`);
+    await page.waitForTimeout(random);
         await page.waitForSelector('#submitbtn', { visible: true });
         await page.click('#submitbtn');
-        console.log(`3 apply job`);
+        console.log(`5 apply job`);
         await page.waitForTimeout(random);
 
         successfullyAppliedJobs.push(arrayLinksForScrap[i]); // Add the job to the successfully applied jobs array
@@ -47,6 +59,8 @@ const jsonData = require('../vacanciesResultWork.json');
         console.error('Interaction failed:', error);
       }
 
+   
+    
       arrayLinksForScrap.shift();
 
       let result = JSON.stringify(arrayLinksForScrap);
@@ -94,5 +108,5 @@ const jsonData = require('../vacanciesResultWork.json');
 
   console.log('4 refresh json done');
 
-  await browser.close();
+  await browser.close();  
 })();
