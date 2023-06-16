@@ -7,6 +7,7 @@ const jsonData = require('../vacanciesResultRabota.json');
   const values = Object.values(jsonData);
   let arrayLinkForScrap = [];
   let successfullyAppliedJobs = []; // New array to store successfully applied jobs
+  let skippedLinks = []; // New array to store skipped links
 
   const browser = await puppeteer.launch({
     headless: false,
@@ -51,6 +52,7 @@ const jsonData = require('../vacanciesResultRabota.json');
       successfullyAppliedJobs.push(arrayLinkForScrap[i]); // Add the job to the successfully applied jobs array
     } catch (error) {
       console.error('Interaction failed:', error);
+      skippedLinks.push(arrayLinkForScrap[i]); // Add the skipped link to the skipped links array
     }
 
     arrayLinkForScrap.shift();
@@ -75,6 +77,14 @@ const jsonData = require('../vacanciesResultRabota.json');
       }
     },
   );
+
+  // Write the skipped links to another file
+  let skippedLinksResult = JSON.stringify(skippedLinks);
+  fs.writeFile('skippedLinks.json', skippedLinksResult, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
 
   console.log('4. Refresh json done');
 

@@ -29,7 +29,7 @@ const jsonData = require('../vacanciesResult.json');
     try {
       await page.waitForSelector(
         'div.col-sm-4.row-mobile-order-1 > div.js-inbox-action-btns > div',
-        { visible: true },
+        { visible: true, timeout: random },
       );
       await page.click(
         'div.col-sm-4.row-mobile-order-1 > div.js-inbox-action-btns > div',
@@ -39,12 +39,16 @@ const jsonData = require('../vacanciesResult.json');
 
       await page.waitForSelector('#tr_541584 > td.js-template-put', {
         visible: true,
+        timeout: random,
       });
       await page.click('#tr_541584 > td.js-template-put');
       console.log(`3 cover letter chosen`);
       await page.waitForTimeout(random);
 
-      await page.waitForSelector('#job_apply', { visible: true });
+      await page.waitForSelector('#job_apply', {
+        visible: true,
+        timeout: random,
+      });
       await page.click('#job_apply');
       console.log(`4 apply job`);
       await page.waitForTimeout(random);
@@ -66,7 +70,7 @@ const jsonData = require('../vacanciesResult.json');
   }
 
   // Write the successfully applied jobs to another file
-  
+
   let existingContent = '';
   try {
     existingContent = fs.readFileSync('successfullyAppliedJobs.json', 'utf8');
@@ -86,7 +90,6 @@ const jsonData = require('../vacanciesResult.json');
   successfullyAppliedJobs = [
     ...new Set([...existingVacancies, ...successfullyAppliedJobs]),
   ];
-
 
   let appliedJobsResult = JSON.stringify(successfullyAppliedJobs);
   fs.writeFile(

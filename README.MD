@@ -40,6 +40,7 @@ npm run openbrowser
     "spamwork": спам на ворк юа,
     "parserabota": парсинг на робота юа,
     "spamrabota": спам на робота юа,
+    "livespam": спам на джинні живий,
     "openbrowser": відкрити браузер.
 </pre>
 
