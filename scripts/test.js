@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const jsonData = require('../vacanciesResultRabota.json');
+const jsonData = require('../vacanciesResult.json');
 
 (async () => {
   const values = Object.values(jsonData);
@@ -30,25 +30,36 @@ const jsonData = require('../vacanciesResultRabota.json');
         'div > div > lib-top-bar > div > div > santa-button > button',
         { visible: true },
       );
+
       await page.click(
         'div > div > lib-top-bar > div > div > santa-button > button',
       );
       console.log('2. click respond');
+
       await page.waitForTimeout(random);
+      const url = await page.url();
+      console.log('url1:', url);
 
-      await page.waitForSelector(
-        'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
-        { visible: true },
-      );
+      if (url.endsWith('/apply')) {
+        await page.waitForTimeout(random);
 
-      await page.click(
-        'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
-      );
+        await page.waitForSelector(
+          'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
+          { visible: true },
+        );
 
-      console.log('2. respond done');
-      await page.waitForTimeout(random);
+        await page.click(
+          'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
+        );
 
-      successfullyAppliedJobs.push(arrayLinkForScrap[i]); // Add the job to the successfully applied jobs array
+        console.log('2. respond done');
+        await page.waitForTimeout(random);
+
+        successfullyAppliedJobs.push(arrayLinkForScrap[i]); // Add the job to the successfully applied jobs array
+      } else {
+        console.log('Skipping non-apply link:', url);
+        continue; // Перейти к следующему элементу массива
+      }
     } catch (error) {
       console.error('Interaction failed:', error);
     }
