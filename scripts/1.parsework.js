@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const linkWithFilter = 'https://www.work.ua/jobs-remote-front+end/?page=1';                                 
+const linkWithFilter = 'https://www.work.ua/jobs-frontend/?advs=1';                                 
 
 (async () => {
   const browser = await puppeteer.launch({

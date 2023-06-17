@@ -37,10 +37,14 @@ const jsonData = require('../vacanciesResult.json');
       console.log(`2 click respond`);
       await page.waitForTimeout(random);
 
-      await page.waitForSelector('#tr_541584 > td.js-template-put', {
+      // await page.waitForSelector('#tr_541584 > td.js-template-put', {
+      //   visible: true,
+      // });
+      // await page.click('#tr_541584 > td.js-template-put');
+      await page.waitForSelector('#tr_544759 > td.js-template-put', {
         visible: true,
-      });
-      await page.click('#tr_541584 > td.js-template-put');
+      }); //селектор посилання на мотиваційний лист
+      await page.click('#tr_544759 > td.js-template-put'); //селектор посилання на мотиваційний лист
       console.log(`3 cover letter chosen`);
       await page.waitForTimeout(random);
 
@@ -66,7 +70,7 @@ const jsonData = require('../vacanciesResult.json');
   }
 
   // Write the successfully applied jobs to another file
-  
+
   let existingContent = '';
   try {
     existingContent = fs.readFileSync('successfullyAppliedJobs.json', 'utf8');
@@ -86,7 +90,6 @@ const jsonData = require('../vacanciesResult.json');
   successfullyAppliedJobs = [
     ...new Set([...existingVacancies, ...successfullyAppliedJobs]),
   ];
-
 
   let appliedJobsResult = JSON.stringify(successfullyAppliedJobs);
   fs.writeFile(
