@@ -29,7 +29,7 @@ const jsonData = require('../vacanciesResult.json');
     try {
       await page.waitForSelector(
         'div.col-sm-4.row-mobile-order-1 > div.js-inbox-action-btns > div',
-        { visible: true },
+        { visible: true, timeout: random },
       );
       await page.click(
         'div.col-sm-4.row-mobile-order-1 > div.js-inbox-action-btns > div',
@@ -43,12 +43,16 @@ const jsonData = require('../vacanciesResult.json');
       // await page.click('#tr_541584 > td.js-template-put');
       await page.waitForSelector('#tr_544759 > td.js-template-put', {
         visible: true,
-      }); //селектор посилання на мотиваційний лист
-      await page.click('#tr_544759 > td.js-template-put'); //селектор посилання на мотиваційний лист
+        timeout: random,
+      });
+      await page.click('#tr_544759 > td.js-template-put');
       console.log(`3 cover letter chosen`);
       await page.waitForTimeout(random);
 
-      await page.waitForSelector('#job_apply', { visible: true });
+      await page.waitForSelector('#job_apply', {
+        visible: true,
+        timeout: random,
+      });
       await page.click('#job_apply');
       console.log(`4 apply job`);
       await page.waitForTimeout(random);

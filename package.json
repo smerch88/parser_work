@@ -10,7 +10,8 @@
     "spamwork": "node .\\scripts\\2.spamwork.js",
     "parserabota": "node .\\scripts\\1.rabota-parse.js",
     "spamrabota": "node .\\scripts\\2.rabota-spam.js",
-    "openbrowser": "node .\\scripts\\0.open-browser.js"
+    "openbrowser": "node .\\scripts\\0.open-browser.js",
+    "livespam": "node .\\scripts\\livespam.js"
   },
   "keywords": [],
   "author": "",
