@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const linkWithFilter = 'https://www.work.ua/jobs-remote-front+end/?page=1';                                 
+const linkWithFilter = 'https://www.work.ua/jobs-remote-front+end/?page=1';
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -34,7 +34,7 @@ const linkWithFilter = 'https://www.work.ua/jobs-remote-front+end/?page=1';
   const pages = await page.$$(
     '#pjax-job-list > nav > ul.pagination.hidden-xs > li> a',
   );
-  pages.shift(); 
+  pages.shift();
 
   let pageURLs = [];
   for (const pageLink of pages) {

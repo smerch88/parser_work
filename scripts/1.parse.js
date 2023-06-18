@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 
 const linkWithFilter =
-  'https://djinni.co/jobs/?all-keywords=front&any-of-keywords=&exclude-keywords=&exp_level=1y&keywords=front';                                 
+  'https://djinni.co/jobs/?all-keywords=front&any-of-keywords=&exclude-keywords=&exp_level=1y&keywords=front';
 
 (async () => {
   const browser = await puppeteer.launch({

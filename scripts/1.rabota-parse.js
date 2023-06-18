@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const linkWithFilteredVacancies = 'https://rabota.ua/ua/zapros/javascript';
+const linkWithFilteredVacancies = 'https://rabota.ua/ua/zapros/javascript'; // тут має бути адреса із рядка запиту у браузері
 
 (async () => {
   const browser = await puppeteer.launch({

@@ -6,6 +6,7 @@ const jsonData = require('../vacanciesResultRabota.json');
 (async () => {
   const values = Object.values(jsonData);
   let arrayLinkForScrap = [];
+  let skippedVacancies = [];
   let successfullyAppliedJobs = []; // New array to store successfully applied jobs
   let skippedLinks = []; // New array to store skipped links
 
@@ -31,25 +32,38 @@ const jsonData = require('../vacanciesResultRabota.json');
         'div > div > lib-top-bar > div > div > santa-button > button',
         { visible: true },
       );
+
       await page.click(
         'div > div > lib-top-bar > div > div > santa-button > button',
       );
       console.log('2. click respond');
+
       await page.waitForTimeout(random);
 
-      await page.waitForSelector(
-        'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
-        { visible: true },
-      );
+      const url = await page.url();
+      console.log('url1:', url);
 
-      await page.click(
-        'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
-      );
+      if (url.endsWith('/apply')) {
+        await page.waitForTimeout(random);
 
-      console.log('2. respond done');
-      await page.waitForTimeout(random);
+        await page.waitForSelector(
+          'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
+          { visible: true },
+        );
 
-      successfullyAppliedJobs.push(arrayLinkForScrap[i]); // Add the job to the successfully applied jobs array
+        await page.click(
+          'body app-root div alliance-apply-page-shell alliance-apply-page main div.santa-mx-auto div alliance-apply-action-buttons div santa-button-spinner div santa-button button',
+        );
+
+        console.log('2. respond done');
+        await page.waitForTimeout(random);
+
+        successfullyAppliedJobs.push(arrayLinkForScrap[i]); // Add the job to the successfully applied jobs array
+      } else {
+        console.log('Skipping non-apply link:', url);
+        skippedVacancies.push(arrayLinkForScrap[i]); //add to array skipped vacancies
+        continue; // Перейти к следующему элементу массива
+      }
     } catch (error) {
       console.error('Interaction failed:', error);
       skippedLinks.push(arrayLinkForScrap[i]); // Add the skipped link to the skipped links array
@@ -58,8 +72,14 @@ const jsonData = require('../vacanciesResultRabota.json');
     arrayLinkForScrap.shift();
 
     let result = JSON.stringify(arrayLinkForScrap);
-
     fs.writeFile('vacanciesResultRabota.json', result, function (error) {
+      if (error) {
+        console.log(error);
+      }
+    });
+
+    let skipped = JSON.stringify(skippedVacancies);
+    fs.writeFile('skippedVacancies.json', skipped, function (error) {
       if (error) {
         console.log(error);
       }
@@ -67,6 +87,27 @@ const jsonData = require('../vacanciesResultRabota.json');
   }
 
   // Write the successfully applied jobs to another file
+
+  let existingContent = '';
+  try {
+    existingContent = fs.readFileSync('successfullyAppliedJobs.json', 'utf8');
+  } catch (err) {
+    console.error(err);
+  }
+
+  let existingVacancies = [];
+  if (existingContent) {
+    try {
+      existingVacancies = JSON.parse(existingContent);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  successfullyAppliedJobs = [
+    ...new Set([...existingVacancies, ...successfullyAppliedJobs]),
+  ];
+
   let appliedJobsResult = JSON.stringify(successfullyAppliedJobs);
   fs.writeFile(
     'successfullyAppliedJobsRabota.json',
@@ -80,7 +121,7 @@ const jsonData = require('../vacanciesResultRabota.json');
 
   // Write the skipped links to another file
   let skippedLinksResult = JSON.stringify(skippedLinks);
-  fs.writeFile('skippedLinks.json', skippedLinksResult, function (err) {
+  fs.writeFile('skippedLinksRabota.json', skippedLinksResult, function (err) {
     if (err) {
       console.log(err);
     }
