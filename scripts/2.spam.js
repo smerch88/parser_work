@@ -37,15 +37,11 @@ const jsonData = require('../vacanciesResult.json');
       console.log(`2 click respond`);
       await page.waitForTimeout(random);
 
-      // await page.waitForSelector('#tr_541584 > td.js-template-put', {
-      //   visible: true,
-      // });
-      // await page.click('#tr_541584 > td.js-template-put');
-      await page.waitForSelector('#tr_544759 > td.js-template-put', {
+      await page.waitForSelector('#tr_541584 > td.js-template-put', {
         visible: true,
         timeout: random,
       });
-      await page.click('#tr_544759 > td.js-template-put');
+      await page.click('#tr_541584 > td.js-template-put');
       console.log(`3 cover letter chosen`);
       await page.waitForTimeout(random);
 

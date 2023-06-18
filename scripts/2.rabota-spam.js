@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const jsonData = require('../vacanciesResult.json');
+const jsonData = require('../vacanciesResultRabota.json');
 
 (async () => {
   const values = Object.values(jsonData);
@@ -72,7 +72,7 @@ const jsonData = require('../vacanciesResult.json');
     arrayLinkForScrap.shift();
 
     let result = JSON.stringify(arrayLinkForScrap);
-    fs.writeFile('vacanciesResult.json', result, function (error) {
+    fs.writeFile('vacanciesResultRabota.json', result, function (error) {
       if (error) {
         console.log(error);
       }
@@ -110,7 +110,7 @@ const jsonData = require('../vacanciesResult.json');
 
   let appliedJobsResult = JSON.stringify(successfullyAppliedJobs);
   fs.writeFile(
-    'successfullyAppliedJobs.json',
+    'successfullyAppliedJobsRabota.json',
     appliedJobsResult,
     function (err) {
       if (err) {
@@ -121,7 +121,7 @@ const jsonData = require('../vacanciesResult.json');
 
   // Write the skipped links to another file
   let skippedLinksResult = JSON.stringify(skippedLinks);
-  fs.writeFile('skippedLinks.json', skippedLinksResult, function (err) {
+  fs.writeFile('skippedLinksRabota.json', skippedLinksResult, function (err) {
     if (err) {
       console.log(err);
     }

@@ -77,7 +77,7 @@ const linkWithFilteredVacancies = 'https://rabota.ua/ua/zapros/javascript'; // Ñ
   // Read existing file content
   let existingContent = '';
   try {
-    existingContent = fs.readFileSync('vacanciesResult.json', 'utf8');
+    existingContent = fs.readFileSync('vacanciesResultRabota.json', 'utf8');
   } catch (err) {
     console.error(err);
   }
@@ -97,7 +97,7 @@ const linkWithFilteredVacancies = 'https://rabota.ua/ua/zapros/javascript'; // Ñ
 
   let result = JSON.stringify(vacancies);
 
-  fs.writeFile('vacanciesResult.json', result, function (error) {
+  fs.writeFile('vacanciesResultRabota.json', result, function (error) {
     if (error) {
       console.log('error', error);
     }
